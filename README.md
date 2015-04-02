@@ -1,6 +1,8 @@
 Harbor: the easier way to install docker things
 ===============================================
 
+Harbor provides a easier way to install docker & its ecosystem. It's under developed, we currently only support docker-machine & docker-compose. Any feedback is wellcome.
+
 
 # Installation
 
