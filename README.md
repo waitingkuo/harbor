@@ -18,3 +18,10 @@ Harbor will install binary file to ~/.harbor/bin , to add it into `$PATH`, add f
     harbor install docker-compose
 
     
+## Todo
+
+1. update packaeg
+2. find a way to update the software version
+3. remove command
+4. list command to show all installed packages
+5. search command to search packages
