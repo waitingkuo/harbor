@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/user"
 	"path/filepath"
+	"runtime"
 )
 
 type HarborStore struct {
@@ -61,25 +62,25 @@ func main() {
 
 					version := "1.2.0rc3"
 
-					sysName, err := GetSysName()
-					if err != nil {
-						log.Fatal(err)
-					}
-					if sysName != "Linux" && sysName != "Darwin" {
-						fmt.Printf("System %s is not supported\n", sysName)
+					goos := runtime.GOOS
+					if goos == "linux" {
+						goos = "Linux"
+					} else if goos == "darwin" {
+						goos = "Darwin"
+					} else {
+						fmt.Printf("OS %s is not supported\n", goos)
 						return
 					}
 
-					machine, err := GetMachine()
-					if err != nil {
-						log.Fatal(err)
-					}
-					if machine != "x86_64" {
-						fmt.Printf("Machine %s is not supported\n", machine)
+					goarch := runtime.GOARCH
+					if goarch != "x86_64" {
+						goarch = "amd64"
+					} else {
+						fmt.Printf("Machine %s is not supported\n", goarch)
 						return
 					}
 
-					link := fmt.Sprintf("https://github.com/docker/compose/releases/download/%s/docker-compose-%s-%s", version, sysName, machine)
+					link := fmt.Sprintf("https://github.com/docker/compose/releases/download/%s/docker-compose-%s-%s", version, goos, goarch)
 
 					dstPath := filepath.Join(store.BinPath, "docker-compose")
 					Download(link, dstPath)
@@ -89,40 +90,24 @@ func main() {
 
 					version := "v0.2.0-rc3"
 
-					sysName, err := GetSysName()
-					if err != nil {
-						log.Fatal(err)
-					}
-					if sysName == "Darwin" {
-						sysName = "darwin"
-					} else if sysName == "Linux" {
-						sysName = "linux"
-					} else if sysName == "Windows" {
-						sysName = "windows"
-					} else {
-						fmt.Printf("System %s is not supported\n", sysName)
+					goos := runtime.GOOS
+					if goos != "linux" && goos != "windows" && goos != "darwin" {
+						fmt.Printf("OS %s is not supported\n", goos)
 						return
 					}
 
-					machine, err := GetMachine()
-					if err != nil {
-						log.Fatal(err)
-					}
-					if machine == "x86_64" {
-						machine = "amd64"
-					} else if machine == "i386" || machine == "i686" {
-						machine = "386"
-					} else {
-						fmt.Printf("Machine %s is not supported\n", machine)
+					goarch := runtime.GOARCH
+					if goarch != "amd64" && goarch != "386" {
+						fmt.Printf("OS %s is not supported\n", goarch)
 						return
 					}
 
-					var extenion string
-					if machine == "window" {
+					extenion := ""
+					if goos == "windows" {
 						extenion = ".exe"
 					}
 
-					link := fmt.Sprintf("https://github.com/docker/machine/releases/download/%s/docker-machine_%s-%s%s", version, sysName, machine, extenion)
+					link := fmt.Sprintf("https://github.com/docker/machine/releases/download/%s/docker-machine_%s-%s%s", version, goos, goarch, extenion)
 					dstPath := filepath.Join(store.BinPath, "docker-machine")
 					Download(link, dstPath)
 
