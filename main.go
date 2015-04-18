@@ -30,7 +30,8 @@ func main() {
 
 					fmt.Println("Installing docker-compose ...")
 
-					version := "1.2.0rc3"
+					//version := "1.2.0rc3"
+					version := "1.2.0"
 
 					goos := runtime.GOOS
 					if goos == "linux" {
@@ -58,7 +59,8 @@ func main() {
 				} else if packageName == "machine" || packageName == "docker-machine" {
 					fmt.Println("Installing docker-machine ...")
 
-					version := "v0.2.0-rc3"
+					//version := "v0.2.0-rc3"
+					version := "v0.2.0"
 
 					goos := runtime.GOOS
 					if goos != "linux" && goos != "windows" && goos != "darwin" {
