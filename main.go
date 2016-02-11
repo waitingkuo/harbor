@@ -63,7 +63,8 @@ func main() {
 					//version := "v0.2.0"
 					//version := "v0.3.0-rc1"
 					//version := "v0.5.5"
-					version := "v0.5.6"
+					//version := "v0.5.6"
+					version := "v0.6.0"
 
 					goos := runtime.GOOS
 					if goos != "linux" && goos != "windows" && goos != "darwin" {
