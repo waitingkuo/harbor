@@ -66,6 +66,7 @@ func main() {
 					//version := "v0.5.5"
 					//version := "v0.5.6"
 					//version := "v0.6.0"
+					//version := "v0.8.0"
 					version := "v0.8.1"
 
 					goos := runtime.GOOS
